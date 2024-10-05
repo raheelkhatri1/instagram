@@ -11,33 +11,54 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-firestore.js"></script>
 </head>
 
 <body>
-    <div class="sign-up d-none">
+
+
+    <div id="sign-up" class="sign-up">
         <div class="sign-up-boder">
             <div class="ssss">
                 <img src="./image/sign-instagram_icon.png" alt="">
                 <h6>Sign up to see photos and videos from your friends.</h6>
-                <button class="btn btn-primary btn_google" onclick="google()"><i class="fa-brands fa-google"></i> &nbsp; log in with google</button>
+                <button class="btn btn-primary btn_google" onclick="google()"><i class="fa-brands fa-google"></i>
+                    &nbsp; log in with google</button>
                 <hr />
                 <input id="email" class="input_sign_up" type="email" placeholder="mobile number or email">
                 <input id="password" class="input_sign_up" type="password" placeholder="password">
                 <input id="fullname" class="input_sign_up" type="text" placeholder="Full Name">
                 <input id="username" class="input_sign_up" type="text" placeholder="username">
-                <h6 class="sign_writing">People who use our service may have uploaded your contact information to Instagram. Learn More</h6>
-                <h6 class="sign_writing">By signing up, you agree to our Terms , Privacy Policy and Cookies Policy </h6>
+                <h6 class="sign_writing">People who use our service may have uploaded your contact information to
+                    Instagram. Learn More</h6>
+                <h6 class="sign_writing">By signing up, you agree to our Terms , Privacy Policy and Cookies Policy
+                </h6>
                 <button class="btn btn-primary btn_google" onclick="sign_up()">sign up</button>
                 <hr />
-                <h6>Have an account? <a href="">log in</a></h6>
+                <h6>Have an account? <a onclick="login_page()">log in</a></h6>
             </div>
 
         </div>
     </div>
-    <div id="root" class="d-flex">
+
+
+
+    <div id="login" class="sign-up d-none">
+
+        <div class="sign-up-boder">
+            <div class="login_up">
+                <input id="email1" class="input_sign_up " type="email" placeholder="mobile number or email">
+                <input id="password1" class="input_sign_up" type="password" placeholder="password">
+                <button class="btn btn-primary btn_google" onclick="logn()">Login</button>
+                <hr />
+                <button class="btn btn-success btn_google" onclick="new_account()">Create new account</button>
+
+            </div>
+        </div>
+    </div>
+    <div id="root" class="d-flex d-none">
         <div class="nav_box">
             <a href=""><img class="logo_img" src="./image/Screenshot 2024-09-26 011256.png" alt="logo"></a>
             <div class="home"><i class="fa-solid fa-house size"></i>
@@ -110,7 +131,7 @@
                 </div>
             </div>
             <div id="post_all" class="post_send_continer">
-                
+
             </div>
 
         </div>

@@ -14,6 +14,19 @@ var provider = new firebase.auth.GoogleAuthProvider()
   
   var db = firebase.firestore()
   var auth = firebase.auth()
+  var userid = localStorage.getItem("user_uid")
+  var userNamePost = ""
+  console.log("data",userNamePost)
+
+  if(userid){
+    var sign_up = document.getElementById("sign-up")
+    var root = document.getElementById("root")
+    sign_up.classList.add("d-none")
+    root.classList.remove("d-none")
+    var login = document.getElementById("login")
+    login.classList.add("d-none")
+  }
+
 
   function google() {
     firebase.auth()
@@ -28,6 +41,7 @@ var provider = new firebase.auth.GoogleAuthProvider()
     var user = result.user;
     // IdP data available in result.additionalUserInfo.profile.
       // ...
+      localStorage.setItem("user_uid",user.uid)  
   }).catch((error) => {
     // Handle Errors here.
     var errorCode = error.code;
@@ -62,6 +76,16 @@ var provider = new firebase.auth.GoogleAuthProvider()
     })
     .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);
+        localStorage.setItem("user_uid",user.uid)
+        
+          var sign_up = document.getElementById("sign-up")
+          var root = document.getElementById("root")
+          sign_up.classList.add("d-none")
+          root.classList.remove("d-none")
+          var login = document.getElementById("login")
+          login.classList.add("d-none")
+        
+
     
     })
     .catch((error) => {
@@ -78,25 +102,39 @@ var provider = new firebase.auth.GoogleAuthProvider()
   }
 
   function logn() {
+    var email = document.getElementById("email1").value
+    var password = document.getElementById("password1").value
+
     firebase.auth().signInWithEmailAndPassword(email, password)
   .then((userCredential) => {
     // Signed in
     var user = userCredential.user;
     // ...
+    console.log("yes",user)
+    var sign_up = document.getElementById("sign-up")
+    var root = document.getElementById("root")
+    sign_up.classList.add("d-none")
+    root.classList.remove("d-none")
+    var login = document.getElementById("login")
+    login.classList.add("d-none")
+    localStorage.setItem("user_uid",user.uid)
   })
   .catch((error) => {
     var errorCode = error.code;
     var errorMessage = error.message;
+    console.log(errorMessage)
   });
+  
   }
-
+  
   function post(){
     var post_write = document.getElementById("post_write").value
     var post_url = document.getElementById("post_url").value
-
+    
     db.collection("post").add({
         post_write,
         post_url,
+        userid,
     })
     .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);
@@ -106,13 +144,11 @@ var provider = new firebase.auth.GoogleAuthProvider()
         console.error("Error adding document: ", error);
     });
     
-    post_write = ""
-    post_url = ""
     
   }
   reload()
-
   function reload() {
+    var userName = ""
     var post_all = document.getElementById("post_all")
     db.collection("post").get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
@@ -121,10 +157,17 @@ var provider = new firebase.auth.GoogleAuthProvider()
         console.log(post_url)
         var boder_div = document.createElement("div")
         boder_div.classList.add("boder_post")
+        var profile_continer = document.createElement("div")
+        profile_continer.classList.add("post_profile")
+        boder_div.appendChild(profile_continer)
         post_all.appendChild(boder_div)
         var profile_icon_div = document.createElement("div")
         profile_icon_div.classList.add("profile_icon")
-        boder_div.appendChild(profile_icon_div)
+        profile_continer.appendChild(profile_icon_div)
+        var profile_name_div = document.createElement("div")
+        var profile_name = document.createTextNode(abc)
+        profile_name_div.appendChild(profile_name)
+        profile_continer.appendChild(profile_name_div)
         var post_url_div = document.createElement("img")
         post_url_div.setAttribute("src",post_url)
         post_url_div.classList.add("post_width")
@@ -135,18 +178,32 @@ var provider = new firebase.auth.GoogleAuthProvider()
         boder_div.appendChild(post_data)
       });
   });
-
-
-    // var post_all = document.getElementById("post_all")
-    // var boder_div = document.createElement("div")
-    // boder_div.classList.add("boder")
-    // post_all.appendChild(boder_div)
-    // var profile_icon_div = document.createElement("div")
-    // profile_icon_div.classList.add("profile_icon")
-    // boder_div.appendChild(profile_icon_div)
-    // var post_uesrname_div = document.createElement("div")
-    // var post_uesrname_text = document.createElement(username1)
-    // post_uesrname_div.appendChild(post_uesrname_text)
-    // boder_div.ap
+  // db.collection("users").where("uid", "==", userid)
+  // .get()
+  // .then((querySnapshot) => {
+  //     querySnapshot.forEach((doc) => {
+  //         // doc.data() is never undefined for query doc snapshots
+  //         userName = doc.data().username
+          
+  //       });
+  //       userNamePost=userName
+  //       console.log(userNamePost)
+  //     })
+  // .catch((error) => {
+  //     console.log("Error getting documents: ", error);
+  // });
     
   }
+function login_page(){
+  var sign_up = document.getElementById("sign-up")
+  sign_up.classList.add("d-none")
+  var login = document.getElementById("login")
+  login.classList.remove("d-none")
+}
+
+function new_account(){
+  var sign_up = document.getElementById("sign-up")
+  sign_up.classList.remove("d-none")
+  var login = document.getElementById("login")
+  login.classList.add("d-none")
+}
