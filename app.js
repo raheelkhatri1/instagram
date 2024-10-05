@@ -148,7 +148,6 @@ var provider = new firebase.auth.GoogleAuthProvider()
   }
   reload()
   function reload() {
-    var userName = ""
     var post_all = document.getElementById("post_all")
     db.collection("post").get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
@@ -165,7 +164,7 @@ var provider = new firebase.auth.GoogleAuthProvider()
         profile_icon_div.classList.add("profile_icon")
         profile_continer.appendChild(profile_icon_div)
         var profile_name_div = document.createElement("div")
-        var profile_name = document.createTextNode(abc)
+        var profile_name = document.createTextNode("abc")
         profile_name_div.appendChild(profile_name)
         profile_continer.appendChild(profile_name_div)
         var post_url_div = document.createElement("img")
